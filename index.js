@@ -46,9 +46,9 @@ app.patch("/products/:id", (req, res) => {
   if (!product) return res.status(404).json({ message: "Product not found" });
 
   if (req.body.name) product.name = req.body.name;
-  if (req.body.description) product.description = req.body.content;
+  if (req.body.description) product.description = req.body.description;
   if (req.body.price) product.price = req.body.price;
-  if (req.body.quantity) product.price = req.body.quantity;
+  if (req.body.quantity) product.quantity = req.body.quantity;
 
   res.json(product);
 });

@@ -33,7 +33,7 @@ app.get("/edit/:id", async (req, res) => {
     res.render("edit.ejs", {
       heading: "Edit Product",
       submit: "Update Product",
-      post: response.data,
+      product: response.data,
     });
   } catch (error) {
     res.status(500).json({ message: "Error fetching product" });
