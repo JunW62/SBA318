@@ -11,20 +11,23 @@
       <h1>My Inventory</h1>
       <a id="newPostBtn" href="/new">New Product</a>
       <ul id="postsList">
-        <% posts.forEach(post=> { %>
+        <% products.forEach(product=> { %>
         <li>
           <h2>
-            <%=post.title%>
+            <%=product.name%>
           </h2>
           <small>
-            <%=post.date %>
+            <%=product.date %>
           </small>
           <p>
-            <%=post.content%>
+            <%=product.description%>
           </p>
-          <small>By: <%=post.author%> </small>
-          <a class="edit" href="/edit/<%= post.id %>">Edit</a>
-          <a class="delete" href="/api/posts/delete/<%= post.id %>">Delete</a>
+          <small>Price: <%=product.price%> $</small>
+          <small>Quantity: <%=product.quantity%> </small>
+          <a class="edit" href="/edit/<%= product.id %>">Edit</a>
+          <a class="delete" href="/api/products/delete/<%= product.id %>"
+            >Delete</a
+          >
         </li>
         <% }); %>
       </ul>
