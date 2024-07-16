@@ -6,7 +6,7 @@ This is an inventory management system developed using Node.js with Express. It 
 
 - **Product Management**: Add, edit, and delete products.
 - **User Management**: Manage users including creating new users, editing existing users, and deleting users.
-- **Review Management**: Handle reviews for products, including posting new reviews and deleting existing ones.
+- **Review Management**: Handle reviews for products, including geting reviews and deleting existing ones.
 
 ## Getting Started
 
@@ -27,7 +27,7 @@ git clone https://github.com/JunW62/SBA318.git
 Navigate into the project directory:
 
 ```bash
-cd your project directory
+cd your-project-directory
 ```
 
 Install the dependencies:
@@ -42,6 +42,12 @@ Start the server:
 
 ```bash
 nodemon server.js
+```
+
+or
+
+```bash
+npm start
 ```
 
 Start the app:
