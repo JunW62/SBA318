@@ -1,68 +1,91 @@
 import express from "express";
 import bodyParser from "body-parser";
-import products from "./data/products.js";
+import axios from "axios";
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
-const port = 4000;
-
-let lastId = 10;
+const port = 3000; // Assuming you want to run your frontend server on port 3000
+const API_URL = "http://localhost:4000"; // API URL if you still need to connect to an external API
 
 // Middleware
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// GET all products
-app.get("/products", (req, res) => {
-  console.log(products);
-  res.json(products);
+// Use product routes for API operations
+app.use("/api/products", productRoutes);
+
+// Frontend Routes
+app.get("/", async (req, res) => {
+  try {
+    const response = await axios.get(`${API_URL}/products`);
+    res.render("index.ejs", { products: response.data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching products" });
+  }
 });
 
-// GET a specific product by id
-app.get("/products/:id", (req, res) => {
-  const product = products.find((p) => p.id === parseInt(req.params.id));
-  if (!product) return res.status(404).json({ message: "Product not found" });
-  res.json(product);
+app.get("/new", (req, res) => {
+  res.render("edit.ejs", {
+    heading: "New Product",
+    submit: "Create Product",
+    product: {},
+  });
 });
 
-// POST a new product
-app.post("/products", (req, res) => {
-  const newId = (lastId += 1);
-  const product = {
-    id: newId,
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    quantity: req.body.quantity,
-    date: new Date(),
-  };
-  lastId = newId;
-  products.push(product);
-  res.status(201).json(product);
+app.get("/edit/:id", async (req, res) => {
+  try {
+    const response = await axios.get(`${API_URL}/products/${req.params.id}`);
+    if (response.data) {
+      res.render("edit.ejs", {
+        heading: "Edit Product",
+        submit: "Update Product",
+        product: response.data,
+      });
+    } else {
+      res.status(404).send("Product not found");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching product" });
+  }
 });
 
-// PATCH a product when you just want to update one parameter
-app.patch("/products/:id", (req, res) => {
-  const product = products.find((p) => p.id === parseInt(req.params.id));
-  if (!product) return res.status(404).json({ message: "Product not found" });
-
-  if (req.body.name) product.name = req.body.name;
-  if (req.body.description) product.description = req.body.description;
-  if (req.body.price) product.price = req.body.price;
-  if (req.body.quantity) product.quantity = req.body.quantity;
-
-  res.json(product);
+app.post("/api/products", async (req, res) => {
+  try {
+    const response = await axios.post(`${API_URL}/products`, req.body);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error creating product" });
+  }
 });
 
-// DELETE a specific product by providing the post id
-app.delete("/products/:id", (req, res) => {
-  const index = products.findIndex((p) => p.id === parseInt(req.params.id));
-  if (index === -1)
-    return res.status(404).json({ message: "Product not found" });
+app.post("/api/products/:id", async (req, res) => {
+  try {
+    const response = await axios.patch(
+      `${API_URL}/products/${req.params.id}`,
+      req.body
+    );
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error updating product" });
+  }
+});
 
-  products.splice(index, 1);
-  res.json({ message: "Product deleted" });
+app.get("/api/products/delete/:id", async (req, res) => {
+  try {
+    await axios.delete(`${API_URL}/products/${req.params.id}`);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error deleting product" });
+  }
 });
 
 app.listen(port, () => {
-  console.log(`API is running at http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Connecting to API server at ${API_URL}`);
 });
