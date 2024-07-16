@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>
+        <%= heading %>
+      </h1>
+
+      <% if (locals.user) { %>
+      <form id="editForm" method="post" action="/api/users/<%=user.id%>">
+        <input type="text" name="name" value="<%=user.name %>" />
+        <input type="text" name="username" value="<%=user.name %>" />
+        <input type="text" name="email" value="<%=user.email %>" />
+        <button class="full-width" type="submit">
+          <%= submit %>
+        </button>
+      </form>
+      <% } else {%>
+      <form id="newPostForm" method="post" action="/api/users">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <button class="full-width" type="submit">
+          <%= submit %>
+        </button>
+      </form>
+      <% } %>
+    </div>
+  </body>
+</html>

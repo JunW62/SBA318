@@ -11,13 +11,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Routes
+
 app.get("/", async (req, res) => {
   try {
-    const response = await axios.get(`${API_URL}/api/products`);
-    // console.log(response);
-    res.render("index.ejs", { products: response.data });
+    // Use Promise.all to handle both requests simultaneously
+    const [userResponse, productResponse] = await Promise.all([
+      axios.get(`${API_URL}/api/users`),
+      axios.get(`${API_URL}/api/products`),
+    ]);
+
+    // Render index.ejs with both users and products
+    res.render("index.ejs", {
+      users: userResponse.data,
+      products: productResponse.data,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching products" });
+    // Log the detailed error for better debugging
+    console.error("Error fetching data:", error);
+    res
+      .status(500)
+      .json({ message: "Error fetching data", details: error.message });
   }
 });
 
@@ -76,6 +89,40 @@ app.get("/api/products/delete/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error deleting product" });
   }
+});
+
+// Route to display new user form
+app.get("/new-user", (req, res) => {
+  res.render("user.ejs", { heading: "New User", submit: "Create User" });
+});
+
+// Create a new user
+app.post("/api/users", async (req, res) => {
+  try {
+    const response = await axios.post(`${API_URL}/api/users`, req.body);
+    console.log(response.data);
+    res.redirect("/");
+  } catch (error) {
+    res.status(500).json({ message: "Error creating user" });
+  }
+});
+
+// Route to display edit user form
+app.get("/edit-user/:id", async (req, res) => {
+  const response = await axios.get(
+    `http://localhost:3000/api/users/${req.params.id}`
+  );
+  if (response.data) {
+    res.render("user.ejs", { user: response.data });
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
+// Route to handle user deletion
+app.get("/delete-user/:id", async (req, res) => {
+  await axios.delete(`http://localhost:3000/api/users/${req.params.id}`);
+  res.redirect("/users");
 });
 
 app.listen(port, () => {
