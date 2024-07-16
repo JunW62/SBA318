@@ -4,8 +4,10 @@ const router = express.Router();
 import reviews from "../data/reviews.js";
 
 let lastId = 10;
+
 // GET all reviews
 router.get("/", (req, res) => {
+  
   console.log(reviews);
   res.json(reviews);
 });

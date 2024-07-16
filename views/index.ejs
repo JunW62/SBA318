@@ -31,19 +31,21 @@
       <h1>My Inventory</h1>
       <a id="newPostBtn" href="/new">New Product</a>
       <ul id="postsList">
-        <% products.forEach(product=> { %>
+        <% products.forEach(product => { %>
         <li>
-          <h2>
-            <%=product.name%>
-          </h2>
-          <small>
-            <%=product.date %>
-          </small>
-          <p>
-            <%=product.description%>
-          </p>
-          <small>Price: <%=product.price%> $</small>
-          <small>Quantity: <%=product.quantity%> </small>
+          <h2><%= product.name %></h2>
+          <small><%= product.date %></small>
+          <p><%= product.description %></p>
+          <small>Price: <%= product.price %> $</small>
+          <small>Quantity: <%= product.quantity %></small>
+          <div>
+            <!-- Display reviews for this product -->
+            <% reviews.forEach(review => { %> <% if (review.id === product.id) {
+            %>
+            <p>Review: <%= review.comments %></p>
+            <small>Rating: <%= review.rating %> Stars</small>
+            <% } %> <% }); %>
+          </div>
           <a class="edit" href="/edit/<%= product.id %>">Edit</a>
           <a class="delete" href="/api/products/delete/<%= product.id %>"
             >Delete</a

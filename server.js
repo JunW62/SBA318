@@ -15,18 +15,19 @@ app.use(bodyParser.json());
 app.get("/", async (req, res) => {
   try {
     // Use Promise.all to handle both requests simultaneously
-    const [userResponse, productResponse] = await Promise.all([
+    const [userResponse, productResponse, reviewResponse] = await Promise.all([
       axios.get(`${API_URL}/api/users`),
       axios.get(`${API_URL}/api/products`),
+      axios.get(`${API_URL}/api/reviews`),
     ]);
 
     // Render index.ejs with both users and products
     res.render("index.ejs", {
       users: userResponse.data,
       products: productResponse.data,
+      reviews: reviewResponse.data,
     });
   } catch (error) {
-    // Log the detailed error for better debugging
     console.error("Error fetching data:", error);
     res
       .status(500)
@@ -146,6 +147,8 @@ app.get("/delete-user/:id", async (req, res) => {
   await axios.delete(`${API_URL}/api/users/${req.params.id}`);
   res.redirect("/");
 });
+
+// ---------------------------reviews----------------------------------
 
 app.listen(port, () => {
   console.log(`Backend server is running on http://localhost:${port}`);
