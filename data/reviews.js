@@ -1,7 +1,7 @@
 const reviews = [
   {
     reviewId: 1,
-    productId: 1,
+    id: 1,
     customerId: 101,
     rating: 5,
     comments: "Excellent quality and lasts long!",
@@ -9,7 +9,7 @@ const reviews = [
   },
   {
     reviewId: 2,
-    productId: 2,
+    id: 2,
     customerId: 102,
     rating: 4,
     comments: "Works well but a bit noisy.",
@@ -17,7 +17,7 @@ const reviews = [
   },
   {
     reviewId: 3,
-    productId: 3,
+    id: 3,
     customerId: 103,
     rating: 3,
     comments: "Average quality, expected better.",
@@ -25,7 +25,7 @@ const reviews = [
   },
   {
     reviewId: 4,
-    productId: 4,
+    id: 4,
     customerId: 104,
     rating: 5,
     comments: "Great value for the price!",
@@ -33,7 +33,7 @@ const reviews = [
   },
   {
     reviewId: 5,
-    productId: 5,
+    id: 5,
     customerId: 105,
     rating: 4,
     comments: "Very durable and reliable.",
@@ -41,7 +41,7 @@ const reviews = [
   },
   {
     reviewId: 6,
-    productId: 6,
+    id: 6,
     customerId: 106,
     rating: 2,
     comments: "Leaked after a few uses, not recommended.",
@@ -49,7 +49,7 @@ const reviews = [
   },
   {
     reviewId: 7,
-    productId: 7,
+    id: 7,
     customerId: 107,
     rating: 5,
     comments: "Comfortable and stylish, love it!",
@@ -57,7 +57,7 @@ const reviews = [
   },
   {
     reviewId: 8,
-    productId: 8,
+    id: 8,
     customerId: 108,
     rating: 5,
     comments: "Keeps perfect time, elegant design.",
@@ -65,7 +65,7 @@ const reviews = [
   },
   {
     reviewId: 9,
-    productId: 9,
+    id: 9,
     customerId: 109,
     rating: 3,
     comments: "Could be more spacious, but good material.",
@@ -73,7 +73,7 @@ const reviews = [
   },
   {
     reviewId: 10,
-    productId: 10,
+    id: 10,
     customerId: 110,
     rating: 1,
     comments: "Stopped working after a week, not happy.",
@@ -81,4 +81,4 @@ const reviews = [
   },
 ];
 
-module.exports = reviews;
+export default reviews;
