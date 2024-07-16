@@ -151,5 +151,5 @@ app.get("/delete-user/:id", async (req, res) => {
 // ---------------------------reviews----------------------------------
 
 app.listen(port, () => {
-  console.log(`Backend server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

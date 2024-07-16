@@ -50,11 +50,13 @@ Start the app:
 nodemon index.js
 ```
 
-This will launch the backend server on http://localhost:3000 and connect to the API server running at http://localhost:4000.
+This will launch the server on http://localhost:3000 and connect to the API server running at http://localhost:4000.
+
+**ATTENTION:** Make sure run all the API endpoint testing on http://localhost:4000. http://localhost:3000 is for rendering the .ejs file.
 
 ## API Endpoints
 
-Below is a list of available API endpoints that allow you to manage products, users, and reviews in the inventory management system:
+Below is a list of available API endpoints that allow you to manage products from http://localhost:4000/, including users, and reviews in the inventory management system:
 
 ### Products
 
@@ -124,13 +126,7 @@ Below is a list of available API endpoints that allow you to manage products, us
   - **Description**: Retrieves a review by its ID.
   - **Response**: Review object.
 
-- **POST `/api/reviews`**
-
-  - **Description**: Adds a new review for a product.
-  - **Request Body**: `{"productId": number, "comments": "string"}`
-  - **Response**: Newly created review object.
-
-- **DELETE `/api/reviews/:id`**
+* **DELETE `/api/reviews/:id`**
   - **Description**: Deletes a review.
   - **Response**: Confirmation message.
 
@@ -139,5 +135,5 @@ Below is a list of available API endpoints that allow you to manage products, us
 Here is how you might call the API to get a list of products using curl:
 
 ```bash
-curl -X GET http://localhost:3000/api/products
+curl -X GET http://localhost:4000/api/products
 ```

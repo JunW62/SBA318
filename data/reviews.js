@@ -1,6 +1,5 @@
 const reviews = [
   {
-    reviewId: 1,
     id: 1,
     customerId: 101,
     rating: 5,
@@ -8,7 +7,6 @@ const reviews = [
     date: "2024-07-12",
   },
   {
-    reviewId: 2,
     id: 2,
     customerId: 102,
     rating: 4,
@@ -16,7 +14,6 @@ const reviews = [
     date: "2024-07-10",
   },
   {
-    reviewId: 3,
     id: 3,
     customerId: 103,
     rating: 3,
@@ -24,7 +21,6 @@ const reviews = [
     date: "2024-07-09",
   },
   {
-    reviewId: 4,
     id: 4,
     customerId: 104,
     rating: 5,
@@ -32,7 +28,6 @@ const reviews = [
     date: "2024-07-05",
   },
   {
-    reviewId: 5,
     id: 5,
     customerId: 105,
     rating: 4,
@@ -40,7 +35,6 @@ const reviews = [
     date: "2024-07-03",
   },
   {
-    reviewId: 6,
     id: 6,
     customerId: 106,
     rating: 2,
@@ -48,7 +42,6 @@ const reviews = [
     date: "2024-06-25",
   },
   {
-    reviewId: 7,
     id: 7,
     customerId: 107,
     rating: 5,
@@ -56,7 +49,6 @@ const reviews = [
     date: "2024-06-20",
   },
   {
-    reviewId: 8,
     id: 8,
     customerId: 108,
     rating: 5,
@@ -64,7 +56,6 @@ const reviews = [
     date: "2024-06-18",
   },
   {
-    reviewId: 9,
     id: 9,
     customerId: 109,
     rating: 3,
@@ -72,7 +63,6 @@ const reviews = [
     date: "2024-06-12",
   },
   {
-    reviewId: 10,
     id: 10,
     customerId: 110,
     rating: 1,
