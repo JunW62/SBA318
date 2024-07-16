@@ -68,13 +68,13 @@ app.post("/api/products", async (req, res) => {
 
 // Partially update a product
 app.post("/api/products/:id", async (req, res) => {
-  console.log("called");
+  // console.log("called");
   try {
     const response = await axios.patch(
       `${API_URL}/api/products/${req.params.id}`,
       req.body
     );
-    console.log(response.data);
+    // console.log(response.data);
     res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: "Error updating product" });
@@ -91,9 +91,27 @@ app.get("/api/products/delete/:id", async (req, res) => {
   }
 });
 
-// Route to display new user form
+// ---------------------------users----------------------------------
+
+// Route to display users
 app.get("/new-user", (req, res) => {
   res.render("user.ejs", { heading: "New User", submit: "Create User" });
+});
+
+// Route to display edit user
+app.get("/edit-user/:id", async (req, res) => {
+  console.log("called");
+  try {
+    const response = await axios.get(`${API_URL}/api/users/${req.params.id}`);
+    console.log(response.data);
+    res.render("user.ejs", {
+      heading: "Edit User",
+      submit: "Update Profile",
+      user: response.data,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user" });
+  }
 });
 
 // Create a new user
@@ -107,22 +125,26 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-// Route to display edit user form
-app.get("/edit-user/:id", async (req, res) => {
-  const response = await axios.get(
-    `http://localhost:3000/api/users/${req.params.id}`
-  );
-  if (response.data) {
-    res.render("user.ejs", { user: response.data });
-  } else {
-    res.status(404).send("User not found");
+// Partially update a user
+
+app.post("/api/users/:id", async (req, res) => {
+  // console.log("called");
+  try {
+    const response = await axios.patch(
+      `${API_URL}/api/users/${req.params.id}`,
+      req.body
+    );
+    // console.log(response.data);
+    res.redirect("/");
+  } catch (error) {
+    res.status(500).json({ message: "Error updating profile" });
   }
 });
 
 // Route to handle user deletion
 app.get("/delete-user/:id", async (req, res) => {
-  await axios.delete(`http://localhost:3000/api/users/${req.params.id}`);
-  res.redirect("/users");
+  await axios.delete(`${API_URL}/api/users/${req.params.id}`);
+  res.redirect("/");
 });
 
 app.listen(port, () => {

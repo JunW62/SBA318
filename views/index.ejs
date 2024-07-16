@@ -8,19 +8,22 @@
   </head>
   <body>
     <div class="container">
-      <ul>
-        <% if (users && users.length) { %> <% users.forEach(user => { %> <% if
-        (user.id === 1) { %>
-        <!-- Check if this is user 1 -->
+      <h1>User Management</h1>
+      <a id="newPostBtn" href="/new-user">New User</a>
+      <ul id="postsList">
+        <% users.forEach(user=> { %>
         <li>
-          <h1>Welcome <%= user.name %></h1>
-          <a class="edit" href="/edit-user/<%= user.id %>">Change User</a>
-          <a id="newPostBtn" href="/new-user">New User</a>
-          <a href="/delete-user/<%= user.id %>">Edit Profile</a>
+          <h2>
+            <%=user.name%>
+          </h2>
+          <small>
+            Username:<%=user.username %>
+          </small>
+          <small>Email: <%=user.email%></small>
+          <a class="edit" href="/edit-user/<%= user.id %>">Edit Profile</a>
+          <a class="delete" href="/delete-user/<%= user.id %>">Delete</a>
         </li>
-        <% } %> <% }); %> <% } else { %>
-        <li>No users found.</li>
-        <% } %>
+        <% }); %>
       </ul>
     </div>
 

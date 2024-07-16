@@ -16,7 +16,7 @@
       <% if (locals.user) { %>
       <form id="editForm" method="post" action="/api/users/<%=user.id%>">
         <input type="text" name="name" value="<%=user.name %>" />
-        <input type="text" name="username" value="<%=user.name %>" />
+        <input type="text" name="username" value="<%=user.username %>" />
         <input type="text" name="email" value="<%=user.email %>" />
         <button class="full-width" type="submit">
           <%= submit %>
